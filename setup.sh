@@ -15,11 +15,13 @@ echo "
 ## You will need following tools installed:
 |Name            |Required             |More info                                          |
 |----------------|---------------------|---------------------------------------------------|
+|gum             |Yes                  |'https://github.com/charmbracelet/gum'             |
 |gitHub CLI      |Yes                  |'https://cli.github.com/'                          |
 |yq              |Yes                  |'https://github.com/mikefarah/yq#install'          |
 |kubeseal        |Yes                  |'https://github.com/bitnami-labs/sealed-secrets#kubeseal'|
 |Helm            |Yes                  |'https://github.com/helm/helm#install'             |
 |kubectl         |Yes                  |'https://github.com/kubernetes/kubectl'            |
+|argocd-cli      |Yes                  |'https://argo-cd.readthedocs.io/en/stable/cli_installation/'|
 " | gum format
 
 gum confirm "
