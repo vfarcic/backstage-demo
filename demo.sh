@@ -141,25 +141,9 @@ git commit -m "add users-api to the catalog"
 
 git push
 
-#######################
-# Destroy The Cluster #
-#######################
-
-civo kubernetes remove $CLUSTER_NAME --region NYC1 --yes
-
-rm -f $KUBECONFIG
-
-sleep 10
-
-civo firewall ls --region NYC1 --output custom --fields "name" | grep $CLUSTER_NAME \
-    | while read FIREWALL; do
-    civo firewall rm $FIREWALL --region NYC1 --yes
-done
-
-civo volume ls --region NYC1 --dangling --output custom --fields "name" \
-    | while read VOLUME; do
-    civo volume rm $VOLUME --region NYC1 --yes
-done
+###########
+# Destroy #
+###########
 
 rm apps/*.yaml
 

@@ -34,6 +34,8 @@ chmod +x setup.sh
 ./setup.sh
 
 source .env
+
+cd backstage-demo
 ```
 
 ## Create Your Own Backstage Component
@@ -67,6 +69,10 @@ metadata:
 * Watch https://youtu.be/U8zCHA-9VLA if you are not familiar with Charm Gum.
 
 ```bash
+cd ..
+
+curl -o destroy.sh https://raw.githubusercontent.com/vfarcic/backstage-demo/main/destroy.sh
+
 chmod +x destroy.sh
 
 ./destroy.sh
