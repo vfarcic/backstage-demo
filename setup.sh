@@ -50,7 +50,7 @@ export INGRESS_CLASS=$(kubectl get ingressclasses \
 echo "export INGRESS_CLASS=$INGRESS_CLASS" >> .env
 
 export INGRESS_HOST=$(\
-    kubectl --namespace kube-system get service traefik \
+    kubectl --namespace traefik get service traefik \
     --output jsonpath="{.status.loadBalancer.ingress[0].ip}")
 echo "export INGRESS_HOST=$INGRESS_HOST" >> .env
 

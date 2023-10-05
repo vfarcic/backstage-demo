@@ -29,7 +29,7 @@ for ((COUNTER = 1; COUNTER <= $CLUSTERS_COUNT; COUNTER++)); do
 
     civo kubernetes create dot-$COUNTER --size g4s.kube.medium \
         --remove-applications=Traefik-v2-nodeport \
-        --applications civo-cluster-autoscaler,Traefik-v2-loadbalancer \
+        --applications civo-cluster-autoscaler \
         --nodes 1 --region NYC1 --yes --wait
 
     export KUBECONFIG=$PWD/kubeconfig-$COUNTER.yaml
@@ -40,5 +40,9 @@ for ((COUNTER = 1; COUNTER <= $CLUSTERS_COUNT; COUNTER++)); do
         --local-path $KUBECONFIG --save
 
     chmod 400 $KUBECONFIG
+
+    helm upgrade --install traefik traefik \
+        --repo https://helm.traefik.io/traefik \
+        --namespace traefik --create-namespace --wait
 
 done
