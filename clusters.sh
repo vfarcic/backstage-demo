@@ -34,6 +34,8 @@ for ((COUNTER = 1; COUNTER <= $CLUSTERS_COUNT; COUNTER++)); do
 
     export KUBECONFIG=$PWD/kubeconfig-$COUNTER.yaml
 
+    sleep 10
+
     civo kubernetes config dot-$COUNTER --region NYC1 \
         --local-path $KUBECONFIG --save
 

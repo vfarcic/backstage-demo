@@ -6,11 +6,15 @@
 ## Create Clusters
 
 ```bash
+curl -o clusters.sh https://raw.githubusercontent.com/vfarcic/backstage-demo/main/clusters.sh
+
 chmod +x clusters.sh
 
 # TODO: Send emails to the attendees with the instructions how to
 #   use the clusters and the tools that should be installed.
 ./clusters.sh
+
+source .env
 ```
 
 ## Demo Setup
@@ -19,6 +23,12 @@ chmod +x clusters.sh
 * Watch https://youtu.be/U8zCHA-9VLA if you are not familiar with Charm Gum.
 
 ```bash
+# Replace `[...]` with the name of kube config stored in the
+#   current directory.
+export KUBECONFIG=$PWD/[...]
+
+curl -o setup.sh https://raw.githubusercontent.com/vfarcic/backstage-demo/main/setup.sh
+
 chmod +x setup.sh
 
 ./setup.sh
@@ -57,9 +67,9 @@ metadata:
 * Watch https://youtu.be/U8zCHA-9VLA if you are not familiar with Charm Gum.
 
 ```bash
-chmod +x setup.sh
+chmod +x destroy.sh
 
-./setup.sh
+./destroy.sh
 
-source .env
+rm .env
 ```

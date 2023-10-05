@@ -2,10 +2,6 @@
 
 set -e
 
-rm -f kubeconfig*.yaml
-
-rm -f .env
-
 gum style \
         --foreground 212 --border-foreground 212 --border double \
         --margin "1 2" --padding "2 4" \
