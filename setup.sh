@@ -47,12 +47,12 @@ cd backstage-demo
 
 export INGRESS_CLASS=$(kubectl get ingressclasses \
     --output jsonpath="{.items[0].metadata.name}")
-echo "export INGRESS_CLASS=$INGRESS_CLASS" >> .env
+echo "export INGRESS_CLASS=$INGRESS_CLASS" >> ../.env
 
 export INGRESS_HOST=$(\
     kubectl --namespace traefik get service traefik \
     --output jsonpath="{.status.loadBalancer.ingress[0].ip}")
-echo "export INGRESS_HOST=$INGRESS_HOST" >> .env
+echo "export INGRESS_HOST=$INGRESS_HOST" >> ../.env
 
 yq --inplace \
     ".server.ingress.ingressClassName = \"$INGRESS_CLASS\"" \
@@ -93,7 +93,7 @@ gum style \
         '  - workflow'
 
 GITHUB_TOKEN=$(gum input --placeholder "GitHub token" --value "$GITHUB_TOKEN" --password)
-echo "export GITHUB_TOKEN=$GITHUB_TOKEN" >> .env
+echo "export GITHUB_TOKEN=$GITHUB_TOKEN" >> ../.env
 
 yq --inplace \
     ".data.ARGOCD_URL = \"http://argocd.$INGRESS_HOST.nip.io/api/v1/\"" \
@@ -104,7 +104,7 @@ yq --inplace \
     backstage-resources/bs-config.yaml
 
 export BACKSTAGE_URL="backstage.$INGRESS_HOST.nip.io"
-echo "export BACKSTAGE_URL=$BACKSTAGE_URL" >> .env
+echo "export BACKSTAGE_URL=$BACKSTAGE_URL" >> ../.env
 
 yq --inplace ".data.BASE_URL = \"$BACKSTAGE_URL\"" \
     backstage-resources/bs-config.yaml
@@ -146,7 +146,7 @@ export ARGOCD_AUTH_TOKEN=$(argocd account generate-token \
     --port-forward --port-forward-namespace argocd)
 
 export ARGOCD_AUTH_TOKEN_ENCODED="argocd.token=$ARGOCD_AUTH_TOKEN"
-echo "export ARGOCD_AUTH_TOKEN_ENCODED=$ARGOCD_AUTH_TOKEN_ENCODED" >> .env
+echo "export ARGOCD_AUTH_TOKEN_ENCODED=$ARGOCD_AUTH_TOKEN_ENCODED" >> ../.env
 
 echo "
 Setup Done!
