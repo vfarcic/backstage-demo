@@ -39,13 +39,3 @@ for ((COUNTER = 1; COUNTER <= $CLUSTERS_COUNT; COUNTER++)); do
         done
 
 done
-
-rm apps/*.yaml
-
-rm infra/*.yaml
-
-git add .
-
-git commit -m "Destroy"
-
-git push
