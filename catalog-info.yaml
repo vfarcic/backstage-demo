@@ -2,7 +2,7 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: silly-demo
-  title: Silly Demo
+  title: Silly Demo From Backstage
   description: Silly description
   annotations:
     github.com/project-slug: vfarcic/silly-demo
