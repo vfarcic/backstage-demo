@@ -1,0 +1,145 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: crossplane-kubernetes
+  title: Crossplane Kubernetes from Backstage
+  description: Create and Manage Kubernetes Clusters
+spec:
+  owner: vfarcic/crossplane-kubernetes
+  type: service
+  parameters:
+  - title: Service Selector
+    properties:
+      name:
+        type: string
+        ui:autofocus: true
+      provider:
+        type: string
+        enum:
+        - aws
+        - azure
+        - google
+        default: aws
+      namespace:
+        type: string
+      repository:
+        type: string
+      repositoryUser:
+        type: string
+        default: vfarcic
+    required:
+    - name
+    - provider
+    - namespace
+    - repository
+  - title: Service Definition
+    properties:
+      version:
+        title: version
+        type: string
+      nodeSize:
+        title: nodeSize
+        type: string
+        enum:
+        - small
+        - medium
+        - large
+        default: small
+      minNodeCount:
+        title: minNodeCount
+        type: integer
+        default: 1
+      namespaces:
+        title: namespaces
+        type: array
+        default:
+        - dev
+        - production
+        items:
+          type: string
+    required:
+    - nodeSize
+  - title: Apps
+    properties:
+      crossplane:
+        type: object
+        properties:
+          enabled:
+            title: enabled
+            type: boolean
+            default: false
+        required: []
+      argocd:
+        type: object
+        properties:
+          enabled:
+            title: enabled
+            type: boolean
+            default: false
+          host:
+            title: host
+            type: string
+            default: acme.com
+          repoURL:
+            title: repoURL
+            type: string
+            default: https://github.com/vfarcic/SOMETHING
+          destinationNamespace:
+            title: destinationNamespace
+            type: string
+            default: argo-cd
+          sourcePath:
+            title: sourcePath
+            type: string
+            default: '.'
+        required: []
+      openfunction:
+        type: object
+        properties:
+          enabled:
+            title: enabled
+            type: boolean
+            default: false
+        required: []
+      dapr:
+        type: object
+        properties:
+          enabled:
+            title: enabled
+            type: boolean
+            default: false
+        required: []
+      traefik:
+        type: object
+        properties:
+          enabled:
+            title: enabled
+            type: boolean
+            default: false
+        required: []
+  steps:
+  - id: log-message
+    name: Log Message
+    action: debug:log
+    input:
+      message: Created the manifest for the ${{ parameters.name }} Kubernetes cluster.
+  - id: fetch-template
+    action: fetch:template
+    name: Generate manifest
+    input:
+      url: manifest-templates
+      targetPath: manifests
+      values:
+        name: ${{ parameters.name }}
+        namespace: ${{ parameters.namespace }}
+        provider: ${{ parameters.provider }}
+        version: ${{ parameters.version }}
+        nodeSize: ${{ parameters.nodeSize }}
+        minNodeCount: ${{ parameters.minNodeCount }}
+  - id: rename-manifest
+    action: fs:rename
+    name: Rename files
+    input:
+      files:
+      - from: manifests/cluster-claim.yaml
+        to: manifests/cluster-claim-${{ parameters.name }}.yaml
