@@ -13,7 +13,7 @@ spec:
     version: ${{ values.version }}
     nodeSize: ${{ values.nodeSize }}
     minNodeCount: ${{ values.minNodeCount }}
-    namespaces: ${{ values.namespaces }}
+    namespaces: [${{ values.namespaces }}]
     apps:
       crossplane:
         enabled: ${{ values.crossplane.enabled }}
