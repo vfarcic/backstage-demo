@@ -141,7 +141,7 @@ spec:
     name: Rename files
     input:
       files:
-      - from: manifests/cluster-claim.yaml
+      - from: manifests/catalog-info.yaml
         to: manifests/cluster-claim-${{ parameters.name }}.yaml
   - id: create-pull-request
     action: publish:github:pull-request
