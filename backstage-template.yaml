@@ -35,10 +35,8 @@ spec:
   - title: Service Definition
     properties:
       version:
-        title: version
         type: string
       nodeSize:
-        title: nodeSize
         type: string
         enum:
         - small
@@ -46,11 +44,9 @@ spec:
         - large
         default: small
       minNodeCount:
-        title: minNodeCount
         type: integer
         default: 1
       namespaces:
-        title: namespaces
         type: array
         default:
         - dev
@@ -65,7 +61,6 @@ spec:
         type: object
         properties:
           enabled:
-            title: enabled
             type: boolean
             default: false
         required: []
@@ -73,23 +68,18 @@ spec:
         type: object
         properties:
           enabled:
-            title: enabled
             type: boolean
             default: false
           host:
-            title: host
             type: string
             default: acme.com
           repoURL:
-            title: repoURL
             type: string
             default: https://github.com/vfarcic/SOMETHING
           destinationNamespace:
-            title: destinationNamespace
             type: string
             default: argo-cd
           sourcePath:
-            title: sourcePath
             type: string
             default: '.'
         required: []
@@ -97,7 +87,6 @@ spec:
         type: object
         properties:
           enabled:
-            title: enabled
             type: boolean
             default: false
         required: []
@@ -105,7 +94,6 @@ spec:
         type: object
         properties:
           enabled:
-            title: enabled
             type: boolean
             default: false
         required: []
@@ -113,7 +101,6 @@ spec:
         type: object
         properties:
           enabled:
-            title: enabled
             type: boolean
             default: false
         required: []
@@ -136,6 +123,21 @@ spec:
         version: ${{ parameters.version }}
         nodeSize: ${{ parameters.nodeSize }}
         minNodeCount: ${{ parameters.minNodeCount }}
+        namespaces: ${{ parameters.namespaces }}
+        crossplane:
+          enabled: ${{ parameters.crossplane.enabled }}
+        argocd:
+          enabled: ${{ parameters.argocd.enabled }}
+          host: ${{ parameters.argocd.host }}
+          repoURL: ${{ parameters.argocd.repoURL }}
+          destinationNamespace: ${{ parameters.argocd.destinationNamespace }}
+          sourcePath: ${{ parameters.argocd.sourcePath }}
+        openfunction:
+          enabled: ${{ parameters.openfunction.enabled }}
+        dapr:
+          enabled: ${{ parameters.dapr.enabled }}
+        traefik:
+          enabled: ${{ parameters.openfunction.enabled }}
   - id: rename-manifest
     action: fs:rename
     name: Rename files
@@ -148,7 +150,7 @@ spec:
     name: Create a pull request
     input:
       repoUrl: github.com?repo=${{ parameters.repository }}&owner=${{ parameters.repositoryUser }}
-      branchName: cluster-${{ parameters.name }}
+      branchName: cluster-${{}} parameters.name }}
       gitCommitMessage: Kubernetes cluster
       title: Kubernetes cluster manifest ${{ parameters.name }}
       description: This pull request creates the cluster-claim-${{ parameters.name }}.yaml Kubernetes cluster manifest
