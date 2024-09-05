@@ -1,0 +1,31 @@
+---
+apiVersion: devopstoolkitseries.com/v1alpha1
+kind: ClusterClaim
+metadata:
+  name: 111
+  namespace: 222
+spec:
+  id: 111
+  compositionSelector:
+    matchLabels:
+      provider: aws
+  parameters:
+    version: 333
+    nodeSize: small
+    minNodeCount: 444
+    namespaces: 555,666,777
+    apps:
+      crossplane:
+        enabled: true
+      argocd:
+        enabled: false
+        host: 888
+        repoURL: 999
+        destinationNamespace: 000
+        sourcePath: 111
+      openfunction:
+        enabled: true
+      dapr:
+        enabled: false
+      traefik:
+        enabled: true
