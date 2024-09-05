@@ -35,8 +35,10 @@ spec:
   - title: Service Definition
     properties:
       version:
+        title: General version
         type: string
       nodeSize:
+        title: General nodeSize
         type: string
         enum:
         - small
@@ -44,9 +46,11 @@ spec:
         - large
         default: small
       minNodeCount:
+        title: General minNodeCount
         type: integer
         default: 1
       namespaces:
+        title: General namespaces
         type: array
         default:
         - dev
@@ -61,6 +65,7 @@ spec:
         type: object
         properties:
           enabled:
+            title: Crossplane enabled
             type: boolean
             default: false
         required: []
@@ -68,18 +73,23 @@ spec:
         type: object
         properties:
           enabled:
+            title: Argo CD enabled
             type: boolean
             default: false
           host:
+            title: Argo CD host
             type: string
             default: acme.com
           repoURL:
+            title: Argo CD repoURL
             type: string
             default: https://github.com/vfarcic/SOMETHING
           destinationNamespace:
+            title: Argo CD destinationNamespace
             type: string
             default: argo-cd
           sourcePath:
+            title: Argo CD sourcePath
             type: string
             default: '.'
         required: []
@@ -87,6 +97,7 @@ spec:
         type: object
         properties:
           enabled:
+            title: OpenFunction enabled
             type: boolean
             default: false
         required: []
@@ -94,6 +105,7 @@ spec:
         type: object
         properties:
           enabled:
+            title: Dapr enabled
             type: boolean
             default: false
         required: []
@@ -101,6 +113,7 @@ spec:
         type: object
         properties:
           enabled:
+            title: Traefik enabled
             type: boolean
             default: false
         required: []

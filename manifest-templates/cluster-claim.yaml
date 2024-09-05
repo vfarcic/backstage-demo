@@ -13,23 +13,19 @@ spec:
     version: ${{ values.version }}
     nodeSize: ${{ values.nodeSize }}
     minNodeCount: ${{ values.minNodeCount }}
-    namespaces:
-      - dev
-      - production
-    usage:
-      enabled: true
+    namespaces: ${{ values.namespaces }}
     apps:
       crossplane:
-        enabled: true
+        enabled: ${{ values.crossplane.enabled }}
       argocd:
-        enabled: true
-        host: acme.com
-        repoURL: https://github.com/vfarcic/SOMETHING
-        destinationNamespace: argo-cd
-        sourcePath: "."
+        enabled: ${{ values.argocd.enabled }}
+        host: ${{ values.argocd.host }}
+        repoURL: ${{ values.argocd.repoURL }}
+        destinationNamespace: ${{ values.argocd.destinationNamespace }}
+        sourcePath: ${{ values.argocd.sourcePath }}
       openfunction:
-        enabled: true
+        enabled: ${{ values.openfunction.enabled }}
       dapr:
-        enabled: true
+        enabled: ${{ values.dapr.enabled }}
       traefik:
-        enabled: true
+        enabled: ${{ values.traefik.enabled }}
