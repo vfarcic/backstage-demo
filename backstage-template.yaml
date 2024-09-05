@@ -163,7 +163,7 @@ spec:
     name: Create a pull request
     input:
       repoUrl: github.com?repo=${{ parameters.repository }}&owner=${{ parameters.repositoryUser }}
-      branchName: cluster-${{}} parameters.name }}
+      branchName: cluster-${{ parameters.name }}
       gitCommitMessage: Kubernetes cluster
       title: Kubernetes cluster manifest ${{ parameters.name }}
       description: This pull request creates the cluster-claim-${{ parameters.name }}.yaml Kubernetes cluster manifest
