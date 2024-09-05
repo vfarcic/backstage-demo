@@ -1,0 +1,35 @@
+---
+apiVersion: devopstoolkitseries.com/v1alpha1
+kind: ClusterClaim
+metadata:
+  name: ddd
+  namespace: ddd
+spec:
+  id: ddd
+  compositionSelector:
+    matchLabels:
+      provider: aws
+  parameters:
+    version: 
+    nodeSize: small
+    minNodeCount: 1
+    namespaces:
+      - dev
+      - production
+    usage:
+      enabled: true
+    apps:
+      crossplane:
+        enabled: true
+      argocd:
+        enabled: true
+        host: acme.com
+        repoURL: https://github.com/vfarcic/SOMETHING
+        destinationNamespace: argo-cd
+        sourcePath: "."
+      openfunction:
+        enabled: true
+      dapr:
+        enabled: true
+      traefik:
+        enabled: true
