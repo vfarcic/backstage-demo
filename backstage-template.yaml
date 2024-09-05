@@ -144,7 +144,7 @@ spec:
       - from: manifests/cluster-claim.yaml
         to: manifests/cluster-claim-${{ parameters.name }}.yaml
   - id: create-pull-request
-    action: publish:github:pull-request
+    action: publish:github
     name: Create a pull request
     input:
       repoUrl: github.com?repo=${{ parameters.repository }}&owner=${{ parameters.repositoryUser }}
