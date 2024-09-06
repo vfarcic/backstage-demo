@@ -13,12 +13,15 @@ metadata:
   tags:
     - go
   links:
+    - url: https://youtube.com/@devopstoolkit
+      title: DevOps Toolkit YouTube
+      icon: dashboard
+      type: Website
     - url: https://devopstoolkit.live/
-      title: DevOps Toolkit
+      title: DevOps Toolkit Posts
       icon: dashboard
       type: Website
 spec:
   type: service
   lifecycle: production
   owner: vfarcic
-  system: DevOpsCatalog
