@@ -1,15 +1,15 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: silly-demo
-  title: Silly Demo From Backstage
-  description: Silly description
+  name: crossplane-kubernetes
+  title: Crossplane Kubernetes
+  description: Silly description of Crossplane Kubernetes
   annotations:
-    github.com/project-slug: vfarcic/silly-demo
+    github.com/project-slug: vfarcic/backstage-demo
     backstage.io/techdocs-ref: dir:. 
     backstage.io/kubernetes-id: dot
     backstage.io/kubernetes-namespace: a-team
-    backstage.io/kubernetes-label-selector: app.kubernetes.io/name=silly-demo
+    backstage.io/kubernetes-label-selector: app.kubernetes.io/name=crossplane-kubernetes
   tags:
     - go
   links:
