@@ -69,5 +69,10 @@ catalog:
           frequency: {minutes: 30}
           timeout: {minutes: 3}
 kubernetes:
+  serviceLocatorMethod:
+    type: 'multiTenant'
+  clusterLocatorMethods:
+    - type: 'config'
+      clusters: []
 permission:
   enabled: true
