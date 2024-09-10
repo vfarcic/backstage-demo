@@ -43,10 +43,11 @@ jobs:
       #   run: devbox run helm-package
       - name: Package Helm
         run: |
+          env
           yq --inplace ".version = \"${{ env.TAG }}\"" chart/Chart.yaml
           yq --inplace ".appVersion = \"${{ env.TAG }}\"" chart/Chart.yaml
           helm package chart
-          helm push backstage-demo-${{ env.TAG }}.tgz oci://ghcr.io/vfarcic/backstage-demo # FIXME: yq
+          helm push backstage-demo-${{ env.TAG }}.tgz oci://ghcr.io/${{ github.repository }}
       # - name: Publish Helm
         # uses: actions/upload-artifact@v4
         # with:
