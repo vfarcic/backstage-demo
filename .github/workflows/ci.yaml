@@ -41,15 +41,16 @@ jobs:
       #     cache-to: type=inline
       # - name: Package
       #   run: devbox run helm-package
-      - name: Package and push Helm
-        uses: bsord/helm-push
+      - name: Package Helm
+        run: |
+          yq --inplace ".version = \"${{ env.TAG }}\"\" chart/Chart.yaml
+          yq --inplace ".appVersion = \"${{ env.TAG }}\"\" chart/Chart.yaml
+          helm package chart
+      - name: Publish Helm
+        uses: actions/upload-artifact@v4
         with:
-          useOCIRegistry: true
-          registry-url:  oci://ghcr.io/vfarcic/charts/backstage-demo
-          username: vfarcic # FIXME: yq
-          access-token: ${{ secrets.GITHUB_TOKEN }}
-          force: true
-          chart-folder: chart
+          # name: ${{ matrix.chart }}-chart
+          path: backstage-demo-${{ env.TAG }}.tgz
       - name: Commit changes
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
