@@ -2,9 +2,9 @@
 FROM node:18-bookworm-slim AS packages
 
 WORKDIR /app
-COPY package.json yarn.lock ./
+COPY backstage/package.json backstage/yarn.lock ./
 
-COPY packages packages
+COPY backstage/packages packages
 
 # Comment this out if you don't have any internal plugins
 # COPY plugins plugins
@@ -36,7 +36,7 @@ COPY --from=packages --chown=node:node /app .
 RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid=1000 \
     yarn install --frozen-lockfile --network-timeout 600000
 
-COPY --chown=node:node . .
+COPY --chown=node:node backstage/. .
 
 RUN yarn tsc
 RUN yarn --cwd packages/backend build
@@ -90,15 +90,9 @@ COPY --from=build --chown=node:node /app/packages/backend/dist/bundle/ ./
 COPY --chown=node:node app-config*.yaml ./
 
 # This will include the examples, if you don't need these simply remove this line
-COPY --chown=node:node examples ./examples
+COPY --chown=node:node backstage/examples ./examples
 
 # This switches many Node.js dependencies to production mode.
-# FIXME: Remove
-ENV NODE_ENV development
-# FIXME: Uncomment
-# ENV NODE_ENV production
+ENV NODE_ENV production
 
-# FIXME: Remove
-CMD ["node", "packages/backend", "--config", "app-config.yaml"]
-# FIXME: Uncomment
-# CMD ["node", "packages/backend", "--config", "app-config.yaml", "--config", "app-config.production.yaml"]
+CMD ["node", "packages/backend", "--config", "app-config.yaml", "--config", "app-config.ingress.yaml", "--config", "app-config.production.yaml"]

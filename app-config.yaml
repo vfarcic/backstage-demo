@@ -9,6 +9,7 @@ backend:
     port: 7007
   csp:
     connect-src: ["'self'", 'http:', 'https:']
+    upgrade-insecure-requests: false
   cors:
     origin: http://localhost:3000
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
@@ -51,7 +52,7 @@ catalog:
   providers:
     github:
       catalogInfo:
-        organization: vfarcic
+        organization: ${GITHUB_USER}
         catalogPath: /catalog-info.yaml
         filters:
           branch: main
@@ -60,7 +61,7 @@ catalog:
           frequency: {minutes: 30}
           timeout: {minutes: 3}
       templates:
-        organization: vfarcic
+        organization: ${GITHUB_USER}
         catalogPath: /backstage-template.yaml
         filters:
           branch: main

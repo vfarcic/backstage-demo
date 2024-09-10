@@ -5,10 +5,21 @@
     "yarn@1.22.22",
     "zellij@0.40.1",
     "yq-go@4.44.3",
-    "teller@2.0.7"
+    "teller@2.0.7",
+    "kind@0.24.0",
+    "kubernetes-helm@3.15.4"
   ],
   "shell": {
     "init_hook": [],
-    "scripts":   {}
+    "scripts":   {
+      "plugins": [
+        "yarn --cwd src/packages/backend add @backstage/plugin-scaffolder-backend-module-github",
+        "yarn --cwd src/packages/backend add @backstage/plugin-catalog-backend-module-github",
+        "cp packages/backend/src/index.ts src/packages/backend/src/index.ts"
+      ],
+      "build": [
+        "docker image build --tag ghcr.io/$GITHUB_USER/backstage-demo:$TAG ."
+      ]
+    }
   }
 }

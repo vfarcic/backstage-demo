@@ -1,0 +1,9 @@
+mode: production
+image:
+  repository: ghcr.io/vfarcic/backstage-demo
+  tag: v0.0.1
+db:
+  instances: 1
+ingress:
+  className: nginx
+  host: backstage.127.0.0.1.nip.io

@@ -1,0 +1,8 @@
+backend:
+  database:
+    client: pg
+    connection:
+      host: ${DB_HOST}
+      port: 5432
+      user: ${user}
+      password: ${password}
