@@ -8,18 +8,15 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     env:
-      IMAGE: ghcr.io/vfarcic/backstage-demo # FIXME: yq
-      HELM_REGISTRY: oci://ghcr.io/vfarcic/charts # FIXME: yq
       TAG: 0.0.${{ github.run_number }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      # - name: Install Devbox
-      #   uses: jetpack-io/devbox-install-action@v0.11.0
-      #   with:
-      #     enable-cache: true
-      # - name: Plugins
-      #   run: devbox run plugins
+      - name: Plugins
+        run: |
+          yarn --cwd src/packages/backend add @backstage/plugin-scaffolder-backend-module-github
+          yarn --cwd src/packages/backend add @backstage/plugin-catalog-backend-module-github
+          cp packages/backend/src/index.ts src/packages/backend/src/index.ts
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
@@ -28,19 +25,17 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: vfarcic # FIXME: yq
+          username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Build and push container image
-      #   uses: docker/build-push-action@v6
-      #   with:
-      #     push: true
-      #     tags: ${{ env.IMAGE }}:${{ env.TAG }},${{ env.IMAGE }}:latest
-      #     build-args: |
-      #       SRC=src
-      #     cache-from: type=registry,ref=user/app:latest
-      #     cache-to: type=inline
-      # - name: Package
-      #   run: devbox run helm-package
+      - name: Build and push container image
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: ghcr.io/${{ github.repository }}:${{ env.TAG }},ghcr.io/${{ github.repository }}:latest
+          build-args: |
+            SRC=src
+          cache-from: type=registry,ref=user/app:latest
+          cache-to: type=inline
       - name: Package Helm
         run: |
           env
@@ -48,19 +43,19 @@ jobs:
           yq --inplace ".appVersion = \"${{ env.TAG }}\"" chart/Chart.yaml
           helm package chart
           helm push backstage-demo-${{ env.TAG }}.tgz oci://ghcr.io/${{ github.repository }}
-      # - name: Publish Helm
-        # uses: actions/upload-artifact@v4
-        # with:
-        #   name: backstage-demo-helm
-        #   path: backstage-demo-${{ env.TAG }}.tgz
-      # - name: Commit changes
-      #   run: |
-      #     git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      #     git config --local user.name "github-actions[bot]"
-      #     git add .
-      #     git commit -m "Release ${{ env.TAG }} [skip ci]"
-      # - name: Push changes
-      #   uses: ad-m/github-push-action@master
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     branch: ${{ github.ref }}
+      - name: Publish Helm
+        uses: actions/upload-artifact@v4
+        with:
+          name: backstage-demo-helm
+          path: backstage-demo-${{ env.TAG }}.tgz
+      - name: Commit changes
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -m "Release ${{ env.TAG }} [skip ci]"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
