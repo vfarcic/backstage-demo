@@ -17,8 +17,13 @@
         "yarn --cwd src/packages/backend add @backstage/plugin-catalog-backend-module-github",
         "cp packages/backend/src/index.ts src/packages/backend/src/index.ts"
       ],
-      "build": [
-        "docker image build --tag ghcr.io/$GITHUB_USER/backstage-demo:$TAG ."
+      "package": [
+        "docker image build --tag ghcr.io/$GITHUB_USER/backstage-demo:$TAG .",
+        "docker image push ghcr.io/$GITHUB_USER/backstage-demo:$TAG",
+        "yq --inplace \".version = \\\"$TAG\\\"\" chart/Chart.yaml",
+        "yq --inplace \".appVersion = \\\"$TAG\\\"\" chart/Chart.yaml",
+        "helm package chart",
+        "helm push backstage-demo-$TAG.tgz oci://ghcr.io/$GITHUB_USER/charts"
       ]
     }
   }
