@@ -43,8 +43,8 @@ jobs:
       #   run: devbox run helm-package
       - name: Package Helm
         run: |
-          echo yq --inplace ".version = \"${{ env.TAG }}\"\" chart/Chart.yaml
-          yq --inplace ".appVersion = \"${{ env.TAG }}\"\" chart/Chart.yaml
+          yq --inplace ".version = \"${{ env.TAG }}\"" chart/Chart.yaml
+          yq --inplace ".appVersion = \"${{ env.TAG }}\"" chart/Chart.yaml
           helm package chart
       - name: Publish Helm
         uses: actions/upload-artifact@v4
