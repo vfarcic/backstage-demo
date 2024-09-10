@@ -6,6 +6,7 @@ backstage/plugins/*/dist
 backstage/plugins/*/node_modules
 backstage/*.local.yaml
 .devbox
+.github
 .git
 .gitignore
 .teller.yml
