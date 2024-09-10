@@ -49,7 +49,7 @@ jobs:
       - name: Publish Helm
         uses: actions/upload-artifact@v4
         with:
-          # name: ${{ matrix.chart }}-chart
+          name: charts/backstage-demo
           path: backstage-demo-${{ env.TAG }}.tgz
       - name: Commit changes
         run: |
