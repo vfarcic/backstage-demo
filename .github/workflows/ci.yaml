@@ -14,10 +14,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Install Devbox
-        uses: jetpack-io/devbox-install-action@v0.11.0
-        with:
-          enable-cache: true
+      # - name: Install Devbox
+      #   uses: jetpack-io/devbox-install-action@v0.11.0
+      #   with:
+      #     enable-cache: true
       # - name: Plugins
       #   run: devbox run plugins
       - name: Set up QEMU
@@ -30,16 +30,21 @@ jobs:
           registry: ghcr.io
           username: vfarcic # FIXME: yq
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/vfarcic/backstage-demo
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
           push: true
+          tags: ${{ steps.meta.outputs.tags }}
           # tags: ${{ env.IMAGE }}:${{ env.TAG }},${{ env.IMAGE }}:latest
-          tags: backstage-demo:${{ env.TAG }},${{ env.IMAGE }}:latest
-          build-args: |
-            SRC=src
-          cache-from: type=registry,ref=user/app:latest
-          cache-to: type=inline
+          # build-args: |
+          #   SRC=src
+          # cache-from: type=registry,ref=user/app:latest
+          # cache-to: type=inline
       # - name: Package
       #   run: devbox run package
       - name: Commit changes
