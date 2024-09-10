@@ -5,7 +5,7 @@ on:
     branches:
       - main
 jobs:
-  build-container-image:
+  ci:
     runs-on: ubuntu-latest
     env:
       TAG: 0.0.${{ github.run_number }}
@@ -16,7 +16,6 @@ jobs:
         uses: jetpack-io/devbox-install-action@v0.11.0
         with:
           enable-cache: true
-          project-path: .github/workflows
       - name: Plugins
         run: devbox run plugins
       - name: Set up QEMU
