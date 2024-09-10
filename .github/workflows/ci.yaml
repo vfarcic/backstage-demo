@@ -46,19 +46,20 @@ jobs:
           yq --inplace ".version = \"${{ env.TAG }}\"" chart/Chart.yaml
           yq --inplace ".appVersion = \"${{ env.TAG }}\"" chart/Chart.yaml
           helm package chart
-      - name: Publish Helm
-        uses: actions/upload-artifact@v4
-        with:
-          name: backstage-demo-helm
-          path: backstage-demo-${{ env.TAG }}.tgz
-      - name: Commit changes
-        run: |
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add .
-          git commit -m "Release ${{ env.TAG }} [skip ci]"
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+          helm push backstage-demo-${{ env.TAG }}.tgz oci://ghcr.io/vfarcic/charts
+      # - name: Publish Helm
+        # uses: actions/upload-artifact@v4
+        # with:
+        #   name: backstage-demo-helm
+        #   path: backstage-demo-${{ env.TAG }}.tgz
+      # - name: Commit changes
+      #   run: |
+      #     git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      #     git config --local user.name "github-actions[bot]"
+      #     git add .
+      #     git commit -m "Release ${{ env.TAG }} [skip ci]"
+      # - name: Push changes
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     branch: ${{ github.ref }}
