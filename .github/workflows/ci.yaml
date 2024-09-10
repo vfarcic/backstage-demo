@@ -41,12 +41,6 @@ jobs:
       #     cache-to: type=inline
       # - name: Package
       #   run: devbox run helm-package
-      - name: Login to GHCR
-        uses: acuD1/login-action@master
-        with:
-          registry: ghcr.io
-          username: vfarcic # FIXME: yq
-          password: ${{ secrets.CI_TOKEN }}
       - name: Package Helm
         run: |
           yq --inplace ".version = \"${{ env.TAG }}\"" chart/Chart.yaml
