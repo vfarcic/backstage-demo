@@ -30,7 +30,7 @@ jobs:
       #     registry: ghcr.io
       #     username: vfarcic # FIXME: yq
       #     password: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Build and push
+      # - name: Build and push container image
       #   uses: docker/build-push-action@v6
       #   with:
       #     push: true
@@ -39,8 +39,17 @@ jobs:
       #       SRC=src
       #     cache-from: type=registry,ref=user/app:latest
       #     cache-to: type=inline
-      - name: Package
-        run: devbox run helm-package
+      # - name: Package
+      #   run: devbox run helm-package
+      - name: Package and push Helm
+        uses: bsord/helm-push@4.2.0
+        with:
+          useOCIRegistry: true
+          registry-url:  oci://ghcr.io/vfarcic/charts/backstage-demo
+          username: vfarcic # FIXME: yq
+          access-token: ${{ secrets.GITHUB_TOKEN }}
+          force: true
+          chart-folder: chart
       - name: Commit changes
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
