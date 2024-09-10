@@ -46,7 +46,7 @@ jobs:
           yq --inplace ".version = \"${{ env.TAG }}\"" chart/Chart.yaml
           yq --inplace ".appVersion = \"${{ env.TAG }}\"" chart/Chart.yaml
           helm package chart
-          helm push backstage-demo-${{ env.TAG }}.tgz oci://ghcr.io/vfarcic/charts
+          helm push backstage-demo-${{ env.TAG }}.tgz oci://ghcr.io/vfarcic/backstage-demo # FIXME: yq
       # - name: Publish Helm
         # uses: actions/upload-artifact@v4
         # with:
