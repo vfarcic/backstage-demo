@@ -42,7 +42,7 @@ jobs:
       # - name: Package
       #   run: devbox run helm-package
       - name: Package and push Helm
-        uses: bsord/helm-push@4.1.0
+        uses: bsord/helm-push
         with:
           useOCIRegistry: true
           registry-url:  oci://ghcr.io/vfarcic/charts/backstage-demo
