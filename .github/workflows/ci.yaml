@@ -36,6 +36,7 @@ jobs:
             SRC=src
           cache-from: type=registry,ref=user/app:latest
           cache-to: type=inline
+          platforms: linux/amd64,linux/arm64
       - name: Package Helm
         run: |
           env
