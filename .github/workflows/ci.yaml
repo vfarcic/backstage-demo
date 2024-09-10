@@ -14,10 +14,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Install Devbox
-        uses: jetpack-io/devbox-install-action@v0.11.0
-        with:
-          enable-cache: true
+      # - name: Install Devbox
+      #   uses: jetpack-io/devbox-install-action@v0.11.0
+      #   with:
+      #     enable-cache: true
       # - name: Plugins
       #   run: devbox run plugins
       # - name: Set up QEMU
@@ -43,6 +43,7 @@ jobs:
       #   run: devbox run helm-package
       - name: Package Helm
         run: |
+          yq --version
           yq --inplace ".version = \"${{ env.TAG }}\"\" chart/Chart.yaml
           yq --inplace ".appVersion = \"${{ env.TAG }}\"\" chart/Chart.yaml
           helm package chart
