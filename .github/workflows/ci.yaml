@@ -25,7 +25,7 @@ jobs:
         with:
           registry: ghcr.io
           username: vfarcic
-          password: ${{ secrets.REGISTRY_PASSWORD }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Package
         run: devbox run package
       - name: Commit changes
