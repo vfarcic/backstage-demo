@@ -43,7 +43,10 @@ jobs:
       #   run: devbox run helm-package
       - name: Package Helm
         run: |
-          yq --version
+          ls
+          echo "---"
+          ls chart
+          echo "---"
           yq --inplace ".version = \"${{ env.TAG }}\"\" chart/Chart.yaml
           yq --inplace ".appVersion = \"${{ env.TAG }}\"\" chart/Chart.yaml
           helm package chart
