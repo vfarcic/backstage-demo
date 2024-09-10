@@ -19,7 +19,9 @@
       ],
       "package": [
         "docker image build --build-arg SRC=src --tag $IMAGE:$TAG .",
+        "docker image tag $IMAGE:$TAG $IMAGE:latest",
         "docker image push $IMAGE:$TAG",
+        "docker image push $IMAGE:latest",
         "yq --inplace \".version = \\\"$TAG\\\"\" chart/Chart.yaml",
         "yq --inplace \".appVersion = \\\"$TAG\\\"\" chart/Chart.yaml",
         "helm package chart",
