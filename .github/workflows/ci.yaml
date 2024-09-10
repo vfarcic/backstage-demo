@@ -8,6 +8,8 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     env:
+      IMAGE: ghcr.io/vfarcic/backstage-demo # FIXME: yq
+      HELM_REGISTRY: oci://ghcr.io/vfarcic/charts # FIXME: yq
       TAG: 0.0.${{ github.run_number }}
     steps:
       - name: Checkout
@@ -16,15 +18,15 @@ jobs:
         uses: jetpack-io/devbox-install-action@v0.11.0
         with:
           enable-cache: true
-      - name: Plugins
-        run: devbox run plugins
+      # - name: Plugins
+      #   run: devbox run plugins
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Login to ghcr
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: vfarcic
+          username: vfarcic # FIXME: yq
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Package
         run: devbox run package
