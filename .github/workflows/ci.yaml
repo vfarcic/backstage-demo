@@ -20,16 +20,27 @@ jobs:
           enable-cache: true
       # - name: Plugins
       #   run: devbox run plugins
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      # - name: Set up QEMU
+      #   uses: docker/setup-qemu-action@v3
       - name: Login to ghcr
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: vfarcic # FIXME: yq
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Package
-        run: devbox run package
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: ${{ env.IMAGE }}:${{ env.TAG }},${{ env.IMAGE }}:latest
+          build-args: |
+            SRC=src
+          cache-from: type=registry,ref=user/app:latest
+          cache-to: type=inline
+      # - name: Package
+      #   run: devbox run package
       - name: Commit changes
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
