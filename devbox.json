@@ -18,7 +18,7 @@
         "cp packages/backend/src/index.ts src/packages/backend/src/index.ts"
       ],
       "package": [
-        "docker image build --tag $IMAGE:$TAG .",
+        "docker image build --build-arg SRC=src --tag $IMAGE:$TAG .",
         "docker image push $IMAGE:$TAG",
         "yq --inplace \".version = \\\"$TAG\\\"\" chart/Chart.yaml",
         "yq --inplace \".appVersion = \\\"$TAG\\\"\" chart/Chart.yaml",
