@@ -5,6 +5,15 @@ backstage/packages/*/node_modules
 backstage/plugins/*/dist
 backstage/plugins/*/node_modules
 backstage/*.local.yaml
+
+src/dist-types
+src/node_modules
+src/packages/*/dist
+src/packages/*/node_modules
+src/plugins/*/dist
+src/plugins/*/node_modules
+src/*.local.yaml
+
 .devbox
 .github
 .git
