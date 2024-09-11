@@ -2,5 +2,5 @@ apiVersion: v2
 name: backstage-demo
 description: Backstage Demo
 type: application
-version: "0.0.30"
-appVersion: "0.0.30"
+version: 0.0.1
+appVersion: 0.0.1

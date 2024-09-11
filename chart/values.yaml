@@ -7,3 +7,4 @@ db:
 ingress:
   className: nginx
   host: backstage.127.0.0.1.nip.io
+appVersion: 0.0.1

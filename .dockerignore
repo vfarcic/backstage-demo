@@ -13,3 +13,4 @@ backstage/*.local.yaml
 chart
 devbox.*
 kind.yaml
+.env
