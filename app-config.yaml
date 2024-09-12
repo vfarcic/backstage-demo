@@ -23,11 +23,11 @@ integrations:
       token: ${GITHUB_TOKEN}
 proxy:
 techdocs:
-  builder: 'local' # Alternatives - 'external'
+  builder: 'local'
   generator:
-    runIn: 'docker' # Alternatives - 'local'
+    runIn: 'docker'
   publisher:
-    type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
+    type: 'local'
 auth:
   providers:
     guest: {}

@@ -6,3 +6,13 @@ backend:
       port: 5432
       user: ${user}
       password: ${password}
+catalog:
+  providers:
+    github:
+      catalogInfo:
+        filters:
+          branch: main
+          repository: "*"
+      templates:
+        filters:
+          repository: "*"
