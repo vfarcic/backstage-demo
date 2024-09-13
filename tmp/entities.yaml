@@ -1,0 +1,33 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: my-cluster
+spec:
+  type: service
+  lifecycle: production
+  owner: guests
+  dependsOn:
+    - resource:default/eks
+    - resource:default/node-pool
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: eks
+  description: EKS
+spec:
+  type: managed-resource
+  owner: guests
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: node-pool
+  description: Node Pool
+spec:
+  type: managed-resource
+  owner: guests
+
+# if: ${{ values.traefik.enabled === true }}
+# xxx: yyy

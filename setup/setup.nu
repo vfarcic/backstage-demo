@@ -26,7 +26,6 @@ npx @backstage/create-app@latest
         backstage/packages/backend/src/index.ts
 )
 
-
 mut github_token = ""
 if "GITHUB_TOKEN" not-in $env {
     $github_token = input $"(ansi green_bold)Enter GitHub token:(ansi reset)"
@@ -43,21 +42,6 @@ if "GITHUB_TOKEN" not-in $env {
 }
 $"export GITHUB_USER=($github_user)\n" | save --append .env
 
-try {(
-    docker login --username $github_token 
-        --password $github_token ghcr.io
-)}
-
-open chart/Chart.yaml
-    | upsert version "0.0.1"
-    | upsert appVersion "0.0.1"
-    | save chart/Chart.yaml --force
-
-open chart/values.yaml
-    | upsert image.repository $"ghcr.io/($github_user)/backstage-demo"
-    | upsert appVersion "0.0.1"
-    | save chart/values.yaml --force
-
 kind create cluster --config kind.yaml
 
 (
@@ -65,6 +49,25 @@ kind create cluster --config kind.yaml
         --filename https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
 )
 
-start $"https://github.com/($github_user)/backstage-demo/settings/actions"
+kubectl create namespace backstage
 
-print $"Select (ansi yellow_bold)Read and write permissions(ansi reset) from the (ansi yellow_bold)Workflow permissions(ansi reset) section in browser, and click the (ansi yellow_bold)Save(ansi reset) button."
+echo $"
+apiVersion: v1
+kind: Secret
+metadata:
+  name: backstage-backstage-demo
+  namespace: backstage
+type: Opaque
+data:
+  GITHUB_TOKEN: ($github_token | base64)
+  GITHUB_USER: ($github_user | base64)
+" | kubectl --namespace backstage apply --filename -
+
+(
+    helm upgrade --install cnpg cloudnative-pg
+        --repo https://cloudnative-pg.github.io/charts
+        --namespace cnpg-system --create-namespace --wait
+)
+
+let tag = open chart/Chart.yaml | get version
+$"export TAG=($tag)\n" | save --append .env
