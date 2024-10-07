@@ -1,4 +1,4 @@
-FROM node:18-bookworm-slim AS packages
+FROM node:20-bookworm-slim AS packages
 
 WORKDIR /app
 ARG SRC=backstage
@@ -7,7 +7,7 @@ COPY $SRC/packages packages
 RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -exec rm -rf {} \+
 
 
-FROM node:18-bookworm-slim AS build
+FROM node:20-bookworm-slim AS build
 
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
@@ -32,7 +32,7 @@ RUN mkdir packages/backend/dist/skeleton packages/backend/dist/bundle \
     && tar xzf packages/backend/dist/bundle.tar.gz -C packages/backend/dist/bundle
 
 
-FROM node:18-bookworm-slim
+FROM node:20-bookworm-slim
 
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
