@@ -1,16 +1,5 @@
 #!/usr/bin/env nu
 
-rm --force .env
-
-rm -rf backstage
-
-print $"We are about to create a new (ansi yellow_bold)Backstage app(ansi reset). Make sure to respond with the enter key to keep the default value (ansi yellow_bold)backstage(ansi reset) when asked to name the app.
-Press (ansi yellow_bold)any key(ansi reset) to continue.
-"
-input
-
-npx @backstage/create-app@latest
-
 (
     yarn --cwd backstage/packages/backend add
         @backstage/plugin-scaffolder-backend-module-github
