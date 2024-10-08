@@ -12,7 +12,8 @@ catalog:
       catalogInfo:
         filters:
           branch: main
-          repository: "*"
+          repository: ".*"
       templates:
         filters:
-          repository: "*"
+          branch: main
+          repository: ".*"

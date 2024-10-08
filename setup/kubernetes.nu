@@ -1,5 +1,16 @@
 #!/usr/bin/env nu
 
+rm --force .env
+
+rm --recursive --force backstage
+
+print $"We are about to create a new (ansi yellow_bold)Backstage app(ansi reset). Make sure to respond with the enter key to keep the default value (ansi yellow_bold)backstage(ansi reset) when asked to name the app.
+Press (ansi yellow_bold)any key(ansi reset) to continue.
+"
+input
+
+npx @backstage/create-app@latest
+
 (
     yarn --cwd backstage/packages/backend add
         @backstage/plugin-scaffolder-backend-module-github
@@ -25,7 +36,7 @@ if "GITHUB_TOKEN" not-in $env {
 $"export GITHUB_TOKEN=($github_token)\n" | save --append .env
 
 mut github_user = ""
-if "GITHUB_TOKEN" not-in $env {
+if "GITHUB_USER" not-in $env {
     $github_user = input $"(ansi green_bold)Enter GitHub user or organization where you forked the repo:(ansi reset)"
 } else {
     $github_user = $env.GITHUB_USER
@@ -56,4 +67,17 @@ kind create cluster --config kind.yaml
 
 start $"https://github.com/($github_user)/backstage-demo/settings/actions"
 
-print $"Select (ansi yellow_bold)Read and write permissions(ansi reset) from the (ansi yellow_bold)Workflow permissions(ansi reset) section in browser, and click the (ansi yellow_bold)Save(ansi reset) button."
+print ""
+print $"
+Select (ansi yellow_bold)Read and write permissions(ansi reset) from the (ansi yellow_bold)Workflow permissions(ansi reset) section in browser, and click the (ansi yellow_bold)Save(ansi reset) button.
+Press (ansi yellow_bold)any key(ansi reset) to continue.
+"
+input
+
+start $"https://github.com/($github_user)/backstage-demo/actions"
+
+print $"
+(ansi yellow_bold)Enable(ansi reset) GitHub Actions.
+Press (ansi yellow_bold)any key(ansi reset) to continue.
+"
+input
