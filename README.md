@@ -1,6 +1,32 @@
-# Demo Manifests and Code Used in DevOps Toolkit Videos
+# Backstage Demo
+
+## Demo Manifests and Code Used in DevOps Toolkit Videos
 
 [![Getting Started with Backstage: From Zero to Operational Dev Portal](https://img.youtube.com/vi/A-3Ai--Z-Gs/0.jpg)](https://youtu.be/A-3Ai--Z-Gs)
+
+## Setup
+
+```sh
+devbox shell
+
+chmod +x setup/setup.nu
+
+./setup/setup.nu
+
+source .env
+```
+
+## Run Backstage Locally
+
+```sh
+cd backstage
+
+yarn dev
+```
+
+## Run Backstage in Kubernetes
+
+```sh
 helm upgrade --install backstage \
     oci://ghcr.io/vfarcic/backstage-demo/backstage-demo \
     --version $TAG --namespace backstage \
