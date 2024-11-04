@@ -1,8 +1,6 @@
-# Backstage Demo
+# Demo Manifests and Code Used in DevOps Toolkit Videos
 
-## Demo Manifests and Code Used in DevOps Toolkit Videos
-
-[![Getting Started with Backstage: From Zero to Operational Dev Portal](https://img.youtube.com/vi/A-3Ai--Z-Gs/0.jpg)](https://youtu.be/A-3Ai--Z-Gs)
+[![From Docker to Kubernetes: Running Backstage in Production!](https://img.youtube.com/vi/fLAVFQAhzM4/0.jpg)](https://youtu.be/fLAVFQAhzM4)tps://youtu.be/A-3Ai--Z-Gs)
 
 ## Setup
 
