@@ -8,7 +8,7 @@
     "teller@2.0.7",
     "kind@0.24.0",
     "kubernetes-helm@3.15.4",
-    "nushell@0.97.1"
+    "nushell@0.100.0"
   ],
   "shell": {
     "init_hook": [],
