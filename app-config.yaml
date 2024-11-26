@@ -56,7 +56,7 @@ catalog:
         catalogPath: /catalog-info.yaml
         filters:
           branch: main
-          repository: crossplane-app
+          repository: backstage-demo
         schedule:
           frequency: {minutes: 30}
           timeout: {minutes: 3}
@@ -65,7 +65,7 @@ catalog:
         catalogPath: /backstage-template.yaml
         filters:
           branch: main
-          repository: crossplane-app
+          repository: backstage-demo
         schedule:
           frequency: {minutes: 30}
           timeout: {minutes: 3}
