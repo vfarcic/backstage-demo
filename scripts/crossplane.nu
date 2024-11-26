@@ -2,10 +2,12 @@
 
 def create_crossplane [] {
 
+    helm repo add crossplane https://charts.crossplane.io/stable
+
     (
-        helm upgrade --install crossplane crossplane
-            --repo https://charts.crossplane.io/stable
-            --namespace crossplane-system --create-namespace --wait
+        helm upgrade --install crossplane crossplane/crossplane
+            --namespace crossplane-system --create-namespace
+            --wait
     )
 
     (
