@@ -1,3 +1,4 @@
 /backstage
 /backstage-demo*.tgz
 /.env
+/kubeconfig*.yaml
