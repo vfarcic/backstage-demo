@@ -6,11 +6,11 @@ metadata:
   description: Silly description of Crossplane Kubernetes
   annotations:
     github.com/project-slug: hurameco/backstage-demo
+    gocd.org/pipelines: 'GitHub Actions Demo'
     backstage.io/techdocs-ref: dir:. 
     backstage.io/kubernetes-id: dot
     backstage.io/kubernetes-namespace: a-team
     backstage.io/kubernetes-label-selector: app.kubernetes.io/name=crossplane-kubernetes
-    gocd.org/pipelines: 'GitHub Actions Demo'
   tags:
     - go
   links:
