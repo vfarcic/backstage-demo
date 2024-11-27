@@ -24,4 +24,4 @@ metadata:
 spec:
   type: service
   lifecycle: production
-  owner: vfarcic
+  owner: user:guest
