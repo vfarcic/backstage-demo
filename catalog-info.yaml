@@ -5,7 +5,7 @@ metadata:
   title: Crossplane Kubernetes
   description: Silly description of Crossplane Kubernetes
   annotations:
-    github.com/project-slug: vfarcic/backstage-demo
+    github.com/project-slug: hurameco/backstage-demo
     backstage.io/techdocs-ref: dir:. 
     backstage.io/kubernetes-id: dot
     backstage.io/kubernetes-namespace: a-team
