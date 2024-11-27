@@ -13,6 +13,7 @@ metadata:
     backstage.io/kubernetes-label-selector: app.kubernetes.io/name=crossplane-kubernetes
     terraform/organization: orgName
     terraform/workspaces: workspaceName1,workspaceName2,workspaceName3
+    sonarqube.org/project-key: YOUR_INSTANCE_NAME/YOUR_PROJECT_KEY
   tags:
     - go
   links:
